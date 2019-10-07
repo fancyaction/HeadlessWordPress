@@ -5,9 +5,12 @@ const MainMenu = () => {
   const { allWordpressWpApiMenusMenusItems } = useStaticQuery(
     graphql`
       query {
-        allWordpressWpApiMenusMenusItems {
+        allWordpressWpApiMenusMenusItems(
+          filter: { name: { eq: "Main Menu" } }
+        ) {
           edges {
             node {
+              name
               items {
                 title
                 object_slug

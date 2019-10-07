@@ -1,5 +1,16 @@
 import React from "react"
 import { graphql, useStaticQuery, Link } from "gatsby"
+import styled from "styled-components"
+
+const MainMenuWrapper = styled.div`
+  display: flex;
+  background-color: rgb(3, 27, 77);
+`
+const MenuItemWrapper = styled(Link)`
+  color: white;
+  display: block;
+  padding: 8px 16px;
+`
 
 const MainMenu = () => {
   const { allWordpressWpApiMenusMenusItems } = useStaticQuery(
@@ -23,13 +34,13 @@ const MainMenu = () => {
   )
 
   return (
-    <div>
+    <MainMenuWrapper>
       {allWordpressWpApiMenusMenusItems.edges[0].node.items.map(item => (
-        <Link to={item.object_slug} key={item.title}>
+        <MenuItemWrapper to={item.object_slug} key={item.title}>
           {item.title}
-        </Link>
+        </MenuItemWrapper>
       ))}
-    </div>
+    </MainMenuWrapper>
   )
 }
 

@@ -53,6 +53,14 @@ exports.createPages = async ({ graphql, actions }) => {
   const { allWordpressPage, allWordpressWpPortfolio } = result.data
 
   const pageTemplate = path.resolve(`./src/templates/page.js`)
+  const portfolioUnderContentTemplate = path.resolve(
+    `./src/templates/portfolioUnderContent.js`
+  )
+
+  const templates = {
+    "portfolio_under_content.php": portfolioUnderContentTemplate,
+  }
+
   // We want to create a detailed page for each page node.
   // The path field contains the relative original WordPress link
   // and we use it for the slug to preserve url structure.
@@ -67,7 +75,7 @@ exports.createPages = async ({ graphql, actions }) => {
       // optional but is often necessary so the template
       // can query data specific to each page.
       path: edge.node.path,
-      component: slash(pageTemplate),
+      component: slash(templates[edge.node.template] || pageTemplate),
       context: {
         id: edge.node.id,
         status: edge.node.status,

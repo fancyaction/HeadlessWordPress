@@ -1,5 +1,22 @@
 import React from "react"
 import { graphql, useStaticQuery, Link } from "gatsby"
+import styled from "styled-components"
+
+const PortfolioItemsWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
+const PortfolioItem = styled.div`
+  width: 300px;
+  border: 1px solid #efefef;
+  padding: 16px;
+  margin: 16px;
+`
+
+const PortfolioImage = styled.img`
+  max-width: 100%;
+`
 
 const PortfolioItems = () => {
   const { allWordpressWpPortfolio } = useStaticQuery(
@@ -26,19 +43,19 @@ const PortfolioItems = () => {
   )
 
   return (
-    <div>
+    <PortfolioItemsWrapper>
       {allWordpressWpPortfolio.edges.map(({ node }) => (
-        <div key={node.id}>
+        <PortfolioItem key={node.id}>
           <h2>{node.title}</h2>
-          <img
+          <PortfolioImage
             src={node.featured_media.source_url}
             alt={node.featured_media.alt_text || node.featured_media.title}
           />
           <div dangerouslySetInnerHTML={{ __html: node.excerpt }}></div>
           <Link to={`/portfolio/${node.slug}`}>Read More</Link>
-        </div>
+        </PortfolioItem>
       ))}
-    </div>
+    </PortfolioItemsWrapper>
   )
 }
 

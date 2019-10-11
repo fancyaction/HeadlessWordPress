@@ -32,7 +32,8 @@ exports.createPages = async ({ graphql, actions }) => {
             title
             excerpt
             content
-            slug
+            status
+            template
             path
             featured_media {
               source_url
@@ -94,6 +95,7 @@ exports.createPages = async ({ graphql, actions }) => {
         format: edge.node.format,
         title: edge.node.title,
         content: edge.node.content,
+        featuredMedia: edge.node.featured_media,
       },
     })
   })

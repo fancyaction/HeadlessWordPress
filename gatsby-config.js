@@ -24,7 +24,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        // icon: `src/images/siteicon.jpg`, // This path is relative to the root of the site.
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
@@ -37,7 +37,7 @@ module.exports = {
          * The base URL of the Wordpress site without the trailingslash and the protocol. This is required.
          * Example : 'gatsbyjsexamplewordpress.wordpress.com' or 'www.example-site.com'
          */
-        baseUrl: "d3c97b5c.ngrok.io",
+        baseUrl: "2f73c603.ngrok.io",
         // The protocol. This can be http or https.
         protocol: "http",
         // Indicates whether the site is hosted on wordpress.com.
@@ -116,6 +116,8 @@ module.exports = {
           "**/users",
           "**/menus",
           "**/portfolio",
+          "**/logo",
+          "**/favicon",
         ],
         // Blacklisted routes using glob patterns
         excludedRoutes: [],

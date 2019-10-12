@@ -1,10 +1,24 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Layout from "../components/layout"
-// import Image from "../components/image"
-// import SEO from "../components/seo"
 
 const IndexPage = () => {
+  const { allWordpressWpFavicon } = useStaticQuery(
+    graphql`
+      query {
+        allWordpressWpFavicon {
+          edges {
+            node {
+              url {
+                source_url
+              }
+            }
+          }
+        }
+      }
+    `
+  )
+
   const { allWordpressPage } = useStaticQuery(
     graphql`
       query {

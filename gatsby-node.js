@@ -46,6 +46,19 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+
+      allWordpressPost {
+        edges {
+          node {
+            title
+            content
+            wordpress_id
+            date
+            excerpt
+            path
+          }
+        }
+      }
     }
   `)
 
@@ -53,7 +66,11 @@ exports.createPages = async ({ graphql, actions }) => {
     throw new Error(result.errors)
   }
 
-  const { allWordpressPage, allWordpressWpPortfolio } = result.data
+  const {
+    allWordpressPage,
+    allWordpressWpPortfolio,
+    allWordpressPost,
+  } = result.data
 
   const pageTemplate = path.resolve(`./src/templates/page.js`)
   const portfolioUnderContentTemplate = path.resolve(
@@ -91,10 +108,7 @@ exports.createPages = async ({ graphql, actions }) => {
   })
 
   const portfolioTemplate = path.resolve(`./src/templates/portfolio.js`)
-  // We want to create a detailed page for each post node.
-  // The path field stems from the original WordPress link
-  // and we use it for the slug to preserve url structure.
-  // The Post ID is prefixed with 'POST_'
+
   allWordpressWpPortfolio.edges.forEach(edge => {
     createPage({
       path: edge.node.path,
@@ -108,6 +122,26 @@ exports.createPages = async ({ graphql, actions }) => {
         content: edge.node.content,
         featuredMedia: edge.node.featured_media,
         acf: edge.node.acf,
+      },
+    })
+  })
+
+  const blogPostListTemplate = path.resolve(`./src/templates/blogPostList.js`)
+  const POSTS_PER_PAGE = 2
+  const posts = allWordpressPost.edges
+  const numberOfPages = Math.ceil(posts.length / POSTS_PER_PAGE)
+
+  Array.from({ length: numberOfPages }).forEach((page, index) => {
+    createPage({
+      path: index ? `/blog/${index + 1}` : "/blog",
+      component: slash(blogPostListTemplate),
+      context: {
+        posts: posts.slice(
+          index * POSTS_PER_PAGE,
+          index * POSTS_PER_PAGE + POSTS_PER_PAGE
+        ),
+        numberOfPages,
+        currentPage: index + 1,
       },
     })
   })

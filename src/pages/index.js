@@ -3,21 +3,21 @@ import { useStaticQuery, graphql } from "gatsby"
 import Layout from "../components/layout"
 
 const IndexPage = () => {
-  const { allWordpressWpFavicon } = useStaticQuery(
-    graphql`
-      query {
-        allWordpressWpFavicon {
-          edges {
-            node {
-              url {
-                source_url
-              }
-            }
-          }
-        }
-      }
-    `
-  )
+  //   const { allWordpressWpFavicon } = useStaticQuery(
+  //     graphql`
+  //       query {
+  //         allWordpressWpFavicon {
+  //           edges {
+  //             node {
+  //               url {
+  //                 source_url
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     `
+  //   )
 
   const { allWordpressPage } = useStaticQuery(
     graphql`

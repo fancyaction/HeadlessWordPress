@@ -10,16 +10,22 @@ const FeaturedImage = styled.img`
 export default ({ pageContext }) => (
   <Layout>
     <h1>{pageContext.title}</h1>
-    <FeaturedImage
-      src={pageContext.featuredMedia.source_url}
-      alt={
-        pageContext.featuredMedia.alt_text || pageContext.featuredMedia.title
-      }
-    />
     <strong>Website URL:</strong>
-    <a href={pageContext.acf.portfolio_url} target="_blank">
+    <a
+      href={pageContext.acf.portfolio_url}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       {pageContext.acf.portfolio_url}
     </a>
+    <div>
+      <FeaturedImage
+        src={pageContext.featuredMedia.source_url}
+        alt={
+          pageContext.featuredMedia.alt_text || pageContext.featuredMedia.title
+        }
+      />
+    </div>
     <div dangerouslySetInnerHTML={{ __html: pageContext.content }}></div>
   </Layout>
 )

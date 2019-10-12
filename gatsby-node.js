@@ -40,6 +40,9 @@ exports.createPages = async ({ graphql, actions }) => {
               alt_text
               title
             }
+            acf {
+              portfolio_url
+            }
           }
         }
       }
@@ -104,6 +107,7 @@ exports.createPages = async ({ graphql, actions }) => {
         title: edge.node.title,
         content: edge.node.content,
         featuredMedia: edge.node.featured_media,
+        acf: edge.node.acf,
       },
     })
   })

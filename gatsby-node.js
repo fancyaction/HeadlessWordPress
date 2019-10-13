@@ -53,8 +53,9 @@ exports.createPages = async ({ graphql, actions }) => {
             title
             content
             wordpress_id
-            date
+            date(formatString: "Do MMM YYYY HH:mm")
             excerpt
+            slug
             path
           }
         }
@@ -142,6 +143,23 @@ exports.createPages = async ({ graphql, actions }) => {
         ),
         numberOfPages,
         currentPage: index + 1,
+      },
+    })
+  })
+
+  allWordpressPost.edges.forEach(edge => {
+    createPage({
+      path: `/post${edge.node.path}`,
+      component: slash(pageTemplate),
+      context: {
+        id: edge.node.id,
+        status: edge.node.status,
+        template: edge.node.template,
+        format: edge.node.format,
+        title: edge.node.title,
+        content: edge.node.content,
+        featuredMedia: edge.node.featured_media,
+        acf: edge.node.acf,
       },
     })
   })

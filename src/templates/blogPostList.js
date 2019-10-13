@@ -22,8 +22,12 @@ export default ({ pageContext }) => (
   <Layout>
     {pageContext.posts.map(post => (
       <div key={post.node.wordpressID}>
-        <h1 dangerouslySetInnerHTML={{ __html: post.node.title }} />
+        <h3 dangerouslySetInnerHTML={{ __html: post.node.title }} />
+        <small>{post.node.date}</small>
         <div dangerouslySetInnerHTML={{ __html: post.node.excerpt }} />
+        <div>
+          <Link to={`/post${post.node.path}`}>Read More</Link>
+        </div>
       </div>
     ))}
     <Pagination>
